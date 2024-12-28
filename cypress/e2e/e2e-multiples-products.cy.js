@@ -6,5 +6,6 @@ describe('template spec', () => {
     cy.visit('/');
     
     loginPage.makeLogin();
+    storePage.addProductsToCart();
   })
 })
