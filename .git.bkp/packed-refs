@@ -1,0 +1,11 @@
+# pack-refs with: peeled fully-peeled sorted 
+6a2a9bd1b8582b33b5ddd23c202d028eaa01af71 refs/remotes/origin/Cleanup/Checkout
+f639b858dbab5e50989d3ccec8019376d8af13db refs/remotes/origin/Eduardo/Integration_Tests
+9673a99910c1cff6c57c31a83e78a48d3f01912b refs/remotes/origin/Eduardo_Stab
+5c40af19a9e01068b62870e485ecc185d61be07e refs/remotes/origin/QA-3323
+17a9b45e16527b171eb5a0b653c69baa66cf15fb refs/remotes/origin/Review_Swagger
+822e06e9e51b264476e55c698bde715ee915057d refs/remotes/origin/add-simple-persistency
+09d747f51e44329299fb8dd6438cc46993fce23e refs/remotes/origin/feat/update-readme
+e886b4245176b3dee5d2f6be4bc7937aee7c0112 refs/remotes/origin/improve-data-testids
+1f76a0da14437e8bfc61bf124dd8ea4115757872 refs/remotes/origin/improve-fake-auth
+a1e8f1eb1b15d215d300857e7ccff9fbd6806862 refs/remotes/origin/master

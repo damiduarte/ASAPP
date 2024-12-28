@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  api:
+    image: asapp-qa-challenge-api
+    ports:
+      - "5000:5000"
+  ui:
+    image: asapp-qa-challenge-ui
+    ports:
+      - "3000:3000"
+    command: ["./run.sh"]
