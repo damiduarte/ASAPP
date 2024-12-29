@@ -40,7 +40,7 @@ export class StorePage{
         cy.wrap(product_card).find(product_title).invoke('text').then((product_title) => {
             const product_info = {
                 title: product_title,
-                quantity: quantity
+                quantity: quantity.toString()
             }
             products_titles_obj_array.push(product_info);
             cy.wrap(products_titles_obj_array).as('product_titles');

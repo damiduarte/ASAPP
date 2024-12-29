@@ -11,4 +11,10 @@ describe('E2E', () => {
     cartPage.enter();
     cartPage.validateAddedProducts();
   })
+
+  afterEach(function() {
+    if (this.currentTest.state === 'failed') {
+      cartPage.cleanCart();
+    }
+  });
 })
