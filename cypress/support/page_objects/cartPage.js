@@ -11,11 +11,11 @@ export class CartPage{
         return cy.contains('BUY!');
     }
 
-    /**
-     * This function iterates over each product title stored in the alias '@product_titles',
-     * finds the corresponding product in the CART, and checks if the displayed quantity
-     * matches the expected quantity.
-     */
+    /*
+    * This function iterates over each product title stored in the alias '@product_titles',
+    * finds the corresponding product in the CART, and checks if the displayed quantity
+    * matches the expected quantity.
+    */
     validateAddedProducts(){
         cy.get('@product_titles').each(product_title => {
             cy.contains(product_title.title).next().invoke('text').should('equal', product_title.quantity);

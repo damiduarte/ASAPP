@@ -4,12 +4,12 @@ const username = 'dam_test';
 const pwd = 'Aa123123';
 
 export class LoginPage{
-    /**
-     * This function intercepts the POST request to the '/users/login' endpoint,
-     * inputs the provided username and password into their respective fields,
-     * and clicks the 'Log In' button. It then waits for the intercepted request
-     * to complete and verifies the request body and response data.
-     */
+    /*
+    * This function intercepts the POST request to the '/users/login' endpoint,
+    * inputs the provided username and password into their respective fields,
+    * and clicks the 'Log In' button. It then waits for the intercepted request
+    * to complete and verifies the request body and response data.
+    */
     makeLogin(){
         cy.intercept('POST', '/users/login').as('loginAPI');
 
