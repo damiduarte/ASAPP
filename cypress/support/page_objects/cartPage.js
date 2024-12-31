@@ -4,7 +4,20 @@ const purchaseOkBtn = '[type="button"]';
 
 export class CartPage{
     enter(){
-        cy.contains('Cart').click();
+        cy.contains('Cart').click().then(() => {
+            cy.wait('@getCartAPI').then(cartIntercept => {
+                const responseData = cartIntercept.response;
+
+                cy.wrap(responseData.statusCode).should('eq', 200);
+                cy.wrap(responseData.body).each(product => {
+                    cy.contains(product.product_name).next().invoke('text').should('equal', product.product_qty.toString());
+                })
+            })
+        });
+    }
+
+    interceptProductsCartAPI(){
+        cy.intercept('GET', '/dam_test/products/cart').as('getCartAPI');
     }
 
     getBuyBtn(){

@@ -8,14 +8,17 @@ describe('E2E', () => {
     loginPage.interceptLoginAPI();
     storePage.interceptProductsAPI();
     storePage.interceptAddToCartAPI();
+    cartPage.interceptProductsCartAPI();
 
     loginPage.makeLogin();
+    
     storePage.validateLoadedItems();
     storePage.addProductsToCart();
+
     cartPage.enter();
     cartPage.validateAddedProducts();
     cartPage.getBuyBtn().click();
-    cartPage.getSuccessfulBuyPopupBtn().click();
+    cartPage.getSuccessfullBuyPopupBtn().click();
   })
 
   afterEach(function() {
