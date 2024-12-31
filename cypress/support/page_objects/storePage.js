@@ -11,12 +11,12 @@ export class StorePage{
         cy.contains('STORE').click();
     }
 
-    /*
-     * This function iterates over the first two product cards found on the page.
-     * Each iteration clicks on the quantity input, sets it to 1, adds the product to the cart
-     * and saves the product title in an alias
-     */
     addProductsToCart(){
+        /*
+        * This function iterates over the first two product cards found on the page.
+        * Each iteration clicks on the quantity input, sets it to 1, adds the product to the cart
+        * and saves the product title in an alias
+        */
         cy.get(products_card).each((product_card, i) => {
             cy.wrap(product_card).find(quantity_input).click();
             quantity = 1;
@@ -36,6 +36,9 @@ export class StorePage{
         cy.get(quantity_selector).click({force: true});
     }
 
+    /**
+     * Saves the titles of the given product cards into an array of product information objects.
+     */
     saveProductsTitles(product_card){
         cy.wrap(product_card).find(product_title).invoke('text').then((product_title) => {
             const product_info = {
