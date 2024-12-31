@@ -14,10 +14,10 @@ export class StorePage{
 
     validateLoadedItems(){
         /*
-        * This function waits for the '@obtainedProducts' network request to complete, then iterates over each product card
+        * This function waits for the '@obtainedProductsAPI' network request to complete, then iterates over each product card
         * on the page and checks that the product title and description match the corresponding data from the network response.
         */
-        cy.wait('@obtainedProducts').then(productsIntercept => {
+        cy.wait('@obtainedProductsAPI').then(productsIntercept => {
             const responseData = productsIntercept.response;
 
             cy.get(products_card).each((product_card, i) => {
@@ -28,7 +28,11 @@ export class StorePage{
     }
 
     interceptProductsAPI(){
-        cy.intercept('GET', '*/products').as('obtainedProducts');
+        cy.intercept('GET', '*/products').as('obtainedProductsAPI');
+    }
+
+    interceptAddToCartAPI(){
+        cy.intercept('POST', '*/products/*/add').as('addToCartAPI');
     }
 
     addProductsToCart(){
@@ -39,12 +43,19 @@ export class StorePage{
         */
         cy.get(products_card).each((product_card, i) => {
             cy.wrap(product_card).find(quantity_input).click();
-            quantity = 1;
+            quantity = '1';
             this.setProductsQuantity(quantity);
 
             cy.wrap(product_card).find(add_to_cart_button).click();
             cy.get(add_to_cart_text_alert).invoke('text').should('equal', 'Product Added to Cart');
 
+            cy.wait('@addToCartAPI').then(addToCartIntercept => {
+                const requestBody = addToCartIntercept.request.body;
+                const responseData = addToCartIntercept.response;
+
+                cy.wrap(requestBody.quantity).should('eq', quantity);
+                cy.wrap(responseData.statusCode).should('eq', 200);
+            });
             this.saveProductsTitles(product_card);
 
             if(i === 1){return false;}
@@ -63,7 +74,7 @@ export class StorePage{
         cy.wrap(product_card).find(product_title).invoke('text').then((product_title) => {
             const product_info = {
                 title: product_title,
-                quantity: quantity.toString()
+                quantity: quantity
             }
             products_titles_obj_array.push(product_info);
             cy.wrap(products_titles_obj_array).as('product_titles');

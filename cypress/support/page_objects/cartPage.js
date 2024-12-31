@@ -28,7 +28,7 @@ export class CartPage{
         })
     }
 
-    getSuccessfulBuyPopupButton() {
+    getSuccessfullBuyPopupBtn() {
         return cy.get(purchaseOkPopup).find(purchaseOkBtn);
     }
 
