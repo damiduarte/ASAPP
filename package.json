@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "docker:build_app": "docker build ./src/api -t asapp-qa-challenge-api || docker build ./src/ui -t asapp-qa-challenge-ui || docker-compose up -d"
+  },
   "dependencies": {
     "cypress": "^13.17.0"
   }

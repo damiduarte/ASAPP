@@ -11,8 +11,8 @@ describe('E2E', () => {
     storePage.addProductsToCart();
     cartPage.enter();
     cartPage.validateAddedProducts();
-    cartPage.buyBtn().click();
-    cartPage.successfullBuyPopupBtn().click();
+    cartPage.getBuyButton().click();
+    cartPage.getSuccessfulBuyPopupButton().click();
   })
 
   afterEach(function() {

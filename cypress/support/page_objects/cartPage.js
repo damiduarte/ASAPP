@@ -7,7 +7,7 @@ export class CartPage{
         cy.contains('Cart').click();
     }
 
-    buyBtn(){
+    getBuyBtn(){
         return cy.contains('BUY!');
     }
 
@@ -28,7 +28,7 @@ export class CartPage{
         })
     }
 
-    successfullBuyPopupBtn() {
+    getSuccessfulBuyPopupButton() {
         return cy.get(purchaseOkPopup).find(purchaseOkBtn);
     }
 
