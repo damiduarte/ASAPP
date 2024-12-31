@@ -1,4 +1,6 @@
 const product_row = '.cart-table-row';
+const purchaseOkPopup = '[role="dialog"]';
+const purchaseOkBtn = '[type="button"]';
 
 export class CartPage{
     enter(){
@@ -21,8 +23,8 @@ export class CartPage{
         })
     }
 
-    successfullBuyPopup() {
-        return cy.get('[role="dialog"]');
+    successfullBuyPopupBtn() {
+        return cy.get(purchaseOkPopup).find(purchaseOkBtn);
     }
 
 }
