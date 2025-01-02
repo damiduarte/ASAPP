@@ -9,16 +9,32 @@ describe('E2E', () => {
     storePage.interceptProductsAPI();
     storePage.interceptAddToCartAPI();
     cartPage.interceptProductsCartAPI();
+    cartPage.interceptCheckoutAPI();
 
-    loginPage.makeLogin();
-    
-    storePage.validateLoadedItems();
-    storePage.addProductsToCart();
+    loginPage.makeLogin().then(() => {
+      loginPage.validateLoginAPI();
+      storePage.validateLoadedProductsAPI();
+    });
 
-    cartPage.enter();
-    cartPage.validateAddedProducts();
-    cartPage.getBuyBtn().click();
-    cartPage.getSuccessfullBuyPopupBtn().click();
+    storePage.obtainAllProductsCards().each((product_card, i) => {
+      storePage.addProductToCart(product_card).then(() => {
+        storePage.validateAddToCartAPI();
+        storePage.validateAddToCartPopUp();
+        storePage.saveProductsTitles(product_card);
+        if(i === 1){return false;} //Break loop after adding 2 products
+      });
+    });
+
+    cartPage.enter().then(() => {
+      cartPage.validateCartAPI();
+      cartPage.validateAddedProducts();
+    });
+
+    cartPage.getBuyBtn().click().then(() => {
+      cartPage.validateCheckoutAPI();
+      cartPage.getSuccessfullBuyPopupBtn().click();
+    });
+
   })
 
   afterEach(function() {

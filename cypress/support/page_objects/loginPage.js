@@ -7,6 +7,7 @@ export class LoginPage{
     interceptLoginAPI(){
         cy.intercept('POST', '/users/login').as('loginAPI');
     }
+    
     /*
     * This function inputs the provided username and password into their respective fields,
     * and clicks the 'Log In' button. It then waits for the intercepted request
@@ -15,8 +16,10 @@ export class LoginPage{
     makeLogin(){
         cy.get(userInput).type(username);
         cy.get(pwdInput).type(pwd);
-        cy.contains('Log In').click()
+        return cy.contains('Log In').click();
+    }
 
+    validateLoginAPI(){
         cy.wait('@loginAPI').then(loginIntercept => {
             const requestBody = loginIntercept.request.body;
             const responseData = loginIntercept.response;

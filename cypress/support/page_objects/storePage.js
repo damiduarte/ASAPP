@@ -12,7 +12,25 @@ export class StorePage{
         cy.contains('Store').click();
     }
 
-    validateLoadedItems(){
+    validateAddToCartPopUp(){
+        cy.get(add_to_cart_text_alert).invoke('text').should('equal', 'Product Added to Cart');
+    }
+
+    /**
+    * Validates the Add to Cart API by waiting for the '@addToCartAPI' alias.
+    * It checks that the request body contains the expected quantity and that the response status code is 200.
+    */
+    validateAddToCartAPI(){
+        cy.wait('@addToCartAPI').then(addToCartIntercept => {
+            const requestBody = addToCartIntercept.request.body;
+            const responseData = addToCartIntercept.response;
+
+            cy.wrap(requestBody.quantity).should('eq', quantity);
+            cy.wrap(responseData.statusCode).should('eq', 200);
+        });
+    }
+
+    validateLoadedProductsAPI(){
         /*
         * This function waits for the '@obtainedProductsAPI' network request to complete, then iterates over each product card
         * on the page and checks that the product title and description match the corresponding data from the network response.
@@ -35,31 +53,19 @@ export class StorePage{
         cy.intercept('POST', '*/products/*/add').as('addToCartAPI');
     }
 
-    addProductsToCart(){
+    obtainAllProductsCards(){
+        return cy.get(products_card);
+    }
+
+    addProductToCart(product_card){
         /*
-        * This function iterates over the first two product cards found on the page.
-        * Each iteration clicks on the quantity input, sets it to 1, adds the product to the cart
-        * and saves the product title in an alias
+        * Clicks on the quantity input, sets it to 1 and adds the product to the cart
         */
-        cy.get(products_card).each((product_card, i) => {
-            cy.wrap(product_card).find(quantity_input).click();
-            quantity = '1';
-            this.setProductsQuantity(quantity);
+        cy.wrap(product_card).find(quantity_input).click();
+        quantity = '1';
+        this.setProductsQuantity(quantity);
 
-            cy.wrap(product_card).find(add_to_cart_button).click();
-            cy.get(add_to_cart_text_alert).invoke('text').should('equal', 'Product Added to Cart');
-
-            cy.wait('@addToCartAPI').then(addToCartIntercept => {
-                const requestBody = addToCartIntercept.request.body;
-                const responseData = addToCartIntercept.response;
-
-                cy.wrap(requestBody.quantity).should('eq', quantity);
-                cy.wrap(responseData.statusCode).should('eq', 200);
-            });
-            this.saveProductsTitles(product_card);
-
-            if(i === 1){return false;}
-        });
+        return cy.wrap(product_card).find(add_to_cart_button).click();
     }
 
     setProductsQuantity(n){
