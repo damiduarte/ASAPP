@@ -3,6 +3,10 @@ const storePage = require('../support/page_objects/storePage');
 const cartPage = require('../support/page_objects/cartPage');
 
 describe('E2E', () => {
+  beforeEach(() => {
+    loginPage.checkUser();
+  });
+
   it('E2E - Finish purchase with multiples products', () => {
     cy.visit('/');
     cy.intercept_E2E_APIS();

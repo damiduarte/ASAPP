@@ -6,6 +6,16 @@ const username = Cypress.env('username');
 const pwd = Cypress.env('pwd');
 
 export class LoginPage{
+    checkUser(){
+        cy.login_API(username, pwd).then(response => {
+            if(response.status === 401){
+                cy.register_API(username, pwd);
+            }else{
+                cy.logout_API(username);
+            }
+        })
+    }
+    
     makeLogin_E2E(){
         this.makeLogin().then(() => {
             this.validateLoginAPI();

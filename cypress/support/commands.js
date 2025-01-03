@@ -36,6 +36,39 @@ Cypress.Commands.add('intercept_E2E_APIS', () => {
         cartPage.interceptCheckoutAPI();
 })
 
+Cypress.Commands.add('logout_API', (username) => {
+    return cy.request({
+        method: 'POST',
+        url: `${Cypress.env('baseUrlAPI')}/users/logout`,
+        body: {
+            username: username
+        }
+    });
+})
+
+Cypress.Commands.add('register_API', (username, pwd) => {
+    return cy.request({
+        method: 'POST',
+        url: `${Cypress.env('baseUrlAPI')}/users/register`,
+        body: {
+            username: username,
+            password: pwd
+        }
+    });
+})
+
+Cypress.Commands.add('login_API', (username, pwd) => {
+    return cy.request({
+        method: 'POST',
+        url: `${Cypress.env('baseUrlAPI')}/users/login`,
+        body: {
+            username: username,
+            password: pwd
+        },
+        failOnStatusCode: false
+    });
+})
+
 Cypress.Commands.add('get_cart_API', () => {
     return cy.request('GET', `${Cypress.env('baseUrlAPI')}/${username}/products/cart`);
 })
