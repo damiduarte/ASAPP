@@ -1,7 +1,7 @@
 const loginPage = require('../../support/page_objects/loginPage');
 const storePage = require('../../support/page_objects/storePage');
 
-describe('CORE', () => {
+describe('CORE - Store', () => {
   beforeEach(() => {
     loginPage.checkUser();
   });
