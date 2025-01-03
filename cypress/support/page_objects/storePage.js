@@ -82,7 +82,7 @@ export class StorePage{
 
     saveProductTitleAndQuantity(product_title){
         /*
-        * Saves the given title and quantity.
+        * Saves the given title and quantity
         */
         const product_info = {
             title: product_title,
