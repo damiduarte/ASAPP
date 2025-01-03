@@ -10,7 +10,7 @@ var products_titles_obj_array = [];
 
 export class StorePage{
     addProductsToCart_E2E(quantity){
-        this.obtainAllProductsCards().each((product_card, i) => {
+        this.getAllProductsCards().each((product_card, i) => {
             this.addProductToCart(product_card).then(() => {
                 this.validateAddToCartPopUp();
                 this.getProductCardTitle(product_card).then(product_title => {
@@ -26,15 +26,23 @@ export class StorePage{
         cy.contains('Store').click();
     }
 
+    interceptProductsAPI(){
+        cy.intercept('GET', `${username}/products`).as('obtainedProductsAPI');
+    }
+
+    interceptAddToCartAPI(){
+        cy.intercept('POST', `${username}/products/*/add`).as('addToCartAPI');
+    }
+
     validateAddToCartPopUp(){
         cy.get(add_to_cart_text_alert).invoke('text').should('equal', 'Product Added to Cart');
     }
 
-    /**
-    * Validates the Add to Cart API by waiting for the '@addToCartAPI' alias.
-    * It checks that the request body contains the expected quantity and that the response status code is 200.
-    */
-    validateAddToCartAPI(product_title){
+    validateAddToCartAPI(product_title){    
+        /**
+         * Validates the Add to Cart API by waiting for the '@addToCartAPI' alias.
+         * It checks that the request body contains the expected quantity and that the response status code is 200.
+         */
         cy.wait('@addToCartAPI').then(addToCartIntercept => {
             const requestEndpoint = addToCartIntercept.request.url;
             const requestBody = addToCartIntercept.request.body;
@@ -47,10 +55,10 @@ export class StorePage{
     }
 
     validateLoadedProductsAPI(){
-        /*
-        * This function waits for the '@obtainedProductsAPI' network request to complete, then iterates over each product card
-        * on the page and checks that the product title and description match the corresponding data from the network response.
-        */
+        /**
+         * This function waits for the '@obtainedProductsAPI' network request to complete, then iterates over each product card
+         * on the cart page and checks that the product title and description match the corresponding data from the network response.
+         */
         cy.wait('@obtainedProductsAPI').then(productsIntercept => {
             const responseData = productsIntercept.response;
 
@@ -59,18 +67,6 @@ export class StorePage{
                 cy.wrap(product_card).find(product_desc).invoke('text').should('equal', responseData.body[i].product_descr);
             });
         });
-    }
-
-    interceptProductsAPI(){
-        cy.intercept('GET', `${username}/products`).as('obtainedProductsAPI');
-    }
-
-    interceptAddToCartAPI(){
-        cy.intercept('POST', `${username}/products/*/add`).as('addToCartAPI');
-    }
-
-    obtainAllProductsCards(){
-        return cy.get(products_card);
     }
 
     addProductToCart(product_card){
@@ -84,14 +80,9 @@ export class StorePage{
         return cy.wrap(product_card).find(add_to_cart_button).click();
     }
 
-    setProductsQuantity(n){
-        const quantity_selector = `[data-value="${n}"]`;
-        cy.get(quantity_selector).click({force: true});
-    }
-
     saveProductTitleAndQuantity(product_title){
         /*
-        * Saves the given title.
+        * Saves the given title and quantity.
         */
         const product_info = {
             title: product_title,
@@ -103,6 +94,15 @@ export class StorePage{
 
     getProductCardTitle(product_card){
         return cy.wrap(product_card).find(product_title).invoke('text');
+    }
+
+    getAllProductsCards(){
+        return cy.get(products_card);
+    }
+
+    setProductsQuantity(n){
+        const quantity_selector = `[data-value="${n}"]`;
+        cy.get(quantity_selector).click({force: true});
     }
 }
 module.exports = new StorePage();

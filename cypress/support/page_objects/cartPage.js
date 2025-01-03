@@ -22,14 +22,6 @@ export class CartPage{
         return cy.contains('Cart').click();
     }
 
-    getBuyBtn(){
-        return cy.contains('BUY!');
-    }
-
-    getSuccessfullBuyPopupBtn() {
-        return cy.get(purchaseOkPopup).find(purchaseOkBtn);
-    }
-
     interceptProductsCartAPI(){
         cy.intercept('GET', `/${username}/products/cart`).as('getCartAPI');
     }
@@ -66,6 +58,10 @@ export class CartPage{
     }
     
     validateCheckoutAPI(){
+        /**
+        * This function waits for the `@checkoutAPI` alias and then checks the response.
+        * It verifies that the status code is 200 and the response body contains the message
+        */
         cy.wait('@checkoutAPI').then(checkoutIntercept => {
             const responseData = checkoutIntercept.response;
             cy.wrap(responseData.statusCode).should('eq', 200);
@@ -77,6 +73,14 @@ export class CartPage{
         cy.get(product_row).each(row => {
             cy.wrap(row).contains('x').click({force: true});
         })
+    }
+    
+    getBuyBtn(){
+        return cy.contains('BUY!');
+    }
+
+    getSuccessfullBuyPopupBtn() {
+        return cy.get(purchaseOkPopup).find(purchaseOkBtn);
     }
 }
 module.exports = new CartPage();
