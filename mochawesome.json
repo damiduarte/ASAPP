@@ -1,0 +1,418 @@
+{
+  "stats": {
+    "suites": 3,
+    "tests": 11,
+    "passes": 10,
+    "pending": 0,
+    "failures": 1,
+    "testsRegistered": 11,
+    "passPercent": 90.9090909090909,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "start": "2025-01-03T17:38:00.590Z",
+    "end": "2025-01-03T17:38:12.684Z",
+    "duration": 12094
+  },
+  "results": [
+    {
+      "uuid": "edf6678d-e798-4324-b363-e5b39562b2ca",
+      "title": "",
+      "fullFile": "cypress\\tests\\3-core\\store.cy.js",
+      "file": "cypress\\tests\\3-core\\store.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "35d9b739-1574-4362-a717-27f4d7d7a995",
+          "title": "CORE - Store",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "CORE - Store - No products found",
+              "fullTitle": "CORE - Store CORE - Store - No products found",
+              "timedOut": null,
+              "duration": 5086,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "storePage.interceptProductsAPI_mockNoProducts();\ncy.visit('/');\nloginPage.makeLogin();\nstorePage.getNoProductsFoundLbl().invoke('text').should('eq', 'No products found');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-test-name=\"no-products-found\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-test-name=\"no-products-found\"]`, but never found it.\n    at StorePage.getNoProductsFoundLbl (webpack:///./cypress/support/page_objects/storePage.js:124:18)\n    at Context.eval (webpack:///./cypress/tests/3-core/store.cy.js:14:14)",
+                "diff": null
+              },
+              "uuid": "72dbdb0e-0eab-43ac-8a8c-0a9a2bd9d668",
+              "parentUUID": "35d9b739-1574-4362-a717-27f4d7d7a995",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "CORE - Store - No stock",
+              "fullTitle": "CORE - Store CORE - Store - No stock",
+              "timedOut": null,
+              "duration": 682,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "storePage.interceptProductsAPI_mockOutOfStock();\ncy.visit('/');\nloginPage.makeLogin();\nstorePage.getOutOfStockLbl().invoke('text').should('eq', 'Out of Stock!');",
+              "err": {},
+              "uuid": "7b8d2a7b-eddf-4b71-ae4f-474dac7b80a1",
+              "parentUUID": "35d9b739-1574-4362-a717-27f4d7d7a995",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "7b8d2a7b-eddf-4b71-ae4f-474dac7b80a1"
+          ],
+          "failures": [
+            "72dbdb0e-0eab-43ac-8a8c-0a9a2bd9d668"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 5768,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "cc047b07-c22f-49c2-86f1-0003db5b7d2b",
+      "title": "",
+      "fullFile": "cypress\\tests\\2-api\\api.cy.js",
+      "file": "cypress\\tests\\2-api\\api.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "629d1417-2584-4345-9763-38815d9861cf",
+          "title": "API - Login",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "API - Login - Ok",
+              "fullTitle": "API - Login API - Login - Ok",
+              "timedOut": null,
+              "duration": 72,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "loginPage.checkUser(username, pwd);\ncy.login_API(username, pwd).then(response => {\n  cy.wrap(response.status).should('eq', 200);\n  cy.wrap(response.body).should('eq', 'Login succeeded.');\n});",
+              "err": {},
+              "uuid": "24a7bda9-bb02-4b44-88a8-c106cbbaaba7",
+              "parentUUID": "629d1417-2584-4345-9763-38815d9861cf",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "API - Login - Invalid user",
+              "fullTitle": "API - Login API - Login - Invalid user",
+              "timedOut": null,
+              "duration": 24,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.login_API(fail_username, fail_pwd).then(response => {\n  cy.wrap(response.status).should('eq', 401);\n  cy.wrap(response.body).should('eq', 'Invalid username/password combo.');\n});",
+              "err": {},
+              "uuid": "300ca8e1-167d-48a6-a97b-51da894dad1b",
+              "parentUUID": "629d1417-2584-4345-9763-38815d9861cf",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "API - Login - Invalid pwd",
+              "fullTitle": "API - Login API - Login - Invalid pwd",
+              "timedOut": null,
+              "duration": 23,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.login_API(username, fail_pwd).then(response => {\n  cy.wrap(response.status).should('eq', 401);\n  cy.wrap(response.body).should('eq', 'Invalid username/password combo.');\n});",
+              "err": {},
+              "uuid": "30bb1993-5b54-4064-a958-2e92aa4f4495",
+              "parentUUID": "629d1417-2584-4345-9763-38815d9861cf",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "24a7bda9-bb02-4b44-88a8-c106cbbaaba7",
+            "300ca8e1-167d-48a6-a97b-51da894dad1b",
+            "30bb1993-5b54-4064-a958-2e92aa4f4495"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 119,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "5da56201-8b81-4ef4-b4fa-bf103f89ffda",
+          "title": "API - Register",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "API - Register - Ok",
+              "fullTitle": "API - Register API - Register - Ok",
+              "timedOut": null,
+              "duration": 20,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const new_username = `${Date.now().toString()}-automation`;\ncy.register_API(new_username, pwd).then(response => {\n  cy.wrap(response.status).should('eq', 200);\n  cy.wrap(response.body).should('eq', 'User created successfully');\n});",
+              "err": {},
+              "uuid": "49d13ce1-c49f-4b88-a692-f78f5871f8eb",
+              "parentUUID": "5da56201-8b81-4ef4-b4fa-bf103f89ffda",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "API - Register - Duplicate",
+              "fullTitle": "API - Register API - Register - Duplicate",
+              "timedOut": null,
+              "duration": 27,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const new_username = `${Date.now().toString()}-automation`;\ncy.register_API(new_username, pwd).then(() => {\n  cy.register_API(new_username, pwd).then(response => {\n    cy.wrap(response.status).should('eq', 409);\n    cy.wrap(response.body).should('eq', `Username \"${new_username}\" already exists`);\n  });\n});",
+              "err": {},
+              "uuid": "ce3a6463-5866-4ab8-85f6-e7aeb7e17fff",
+              "parentUUID": "5da56201-8b81-4ef4-b4fa-bf103f89ffda",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "49d13ce1-c49f-4b88-a692-f78f5871f8eb",
+            "ce3a6463-5866-4ab8-85f6-e7aeb7e17fff"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 47,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "1b3281fc-8c8a-4357-841c-946b7bb75c71",
+          "title": "API - Get Products",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "API - Get Products - Ok",
+              "fullTitle": "API - Get Products API - Get Products - Ok",
+              "timedOut": null,
+              "duration": 53,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get_products_API().then(response => {\n  cy.wrap(response.status).should('eq', 200);\n  cy.wrap(response.body).each(product => {\n    cy.wrap(typeof product.product_name).should('eq', 'string');\n    cy.wrap(typeof product.product_qty).should('eq', 'number');\n    cy.wrap(typeof product.product_descr).should('eq', 'string');\n    cy.wrap(response.status).should('eq', 200);\n  });\n});",
+              "err": {},
+              "uuid": "bc1c953c-177b-4b2f-9c3c-75e2b59f11bc",
+              "parentUUID": "1b3281fc-8c8a-4357-841c-946b7bb75c71",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "API - Get Products - No Auth",
+              "fullTitle": "API - Get Products API - Get Products - No Auth",
+              "timedOut": null,
+              "duration": 38,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get_products_API('dsadsa').then(response => {\n  cy.wrap(response.status).should('eq', 401);\n  cy.wrap(response.body).should('eq', 'User must be logged-in to perform this action');\n});",
+              "err": {},
+              "uuid": "fd57900c-94c4-4635-b947-65566c19b14c",
+              "parentUUID": "1b3281fc-8c8a-4357-841c-946b7bb75c71",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "API - Get Products - Info",
+              "fullTitle": "API - Get Products API - Get Products - Info",
+              "timedOut": null,
+              "duration": 64,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get_products_API().then(response => {\n  cy.wrap(response.body).each(product => {\n    cy.get_product_info_API(undefined, product.product_name).then(response => {\n      const product = response.body;\n      cy.wrap(typeof product.product_name).should('eq', 'string');\n      cy.wrap(typeof product.product_qty).should('eq', 'number');\n      cy.wrap(typeof product.product_descr).should('eq', 'string');\n      cy.wrap(response.status).should('eq', 200);\n    });\n  });\n});",
+              "err": {},
+              "uuid": "bb729bb0-d2a0-40ca-b814-c37d7cb0e154",
+              "parentUUID": "1b3281fc-8c8a-4357-841c-946b7bb75c71",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "bc1c953c-177b-4b2f-9c3c-75e2b59f11bc",
+            "fd57900c-94c4-4635-b947-65566c19b14c",
+            "bb729bb0-d2a0-40ca-b814-c37d7cb0e154"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 155,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "47218c14-9a6f-4746-b55d-9ee8088dc98e",
+      "title": "",
+      "fullFile": "cypress\\tests\\1-e2e\\e2e-multiples-products.cy.js",
+      "file": "cypress\\tests\\1-e2e\\e2e-multiples-products.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "a7537dfa-8a42-477c-bded-cc7ad6e75ff0",
+          "title": "E2E",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "E2E - Finish purchase with multiples products",
+              "fullTitle": "E2E E2E - Finish purchase with multiples products",
+              "timedOut": null,
+              "duration": 3555,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit('/');\ncy.intercept_E2E_APIS();\nloginPage.makeLogin_E2E();\nstorePage.addProductsToCart_E2E(2);\ncartPage.enter_E2E();\ncartPage.finishPayment_E2E();",
+              "err": {},
+              "uuid": "feed332b-b042-4369-a3c3-5bbeedee99f1",
+              "parentUUID": "a7537dfa-8a42-477c-bded-cc7ad6e75ff0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "feed332b-b042-4369-a3c3-5bbeedee99f1"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3555,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
