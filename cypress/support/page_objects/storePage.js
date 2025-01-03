@@ -4,10 +4,12 @@ const product_title = '[data-test-name="product-title"]';
 const product_desc = '[data-test-name="product-desc"]';
 const quantity_input = '.MuiInputBase-root';
 const add_to_cart_button = '[data-test-name="add-to-cart-button"]';
+const out_of_stock_lbl = '[data-test-name="out-of-stock-label"]';
 const add_to_cart_text_alert = '#snackbar-fab-message-id';
 var quantity;
 var products_titles_obj_array = [];
 
+const noProductsLbl = '[data-test-name="no-products-found"]';
 export class StorePage{
     addProductsToCart_E2E(quantity){
         this.getAllProductsCards().each((product_card, i) => {
@@ -32,6 +34,23 @@ export class StorePage{
 
     interceptAddToCartAPI(){
         cy.intercept('POST', `${username}/products/*/add`).as('addToCartAPI');
+    }
+
+    interceptProductsAPI_mockOutOfStock(){
+        cy.intercept('GET', `${username}/products`, {
+            statusCode: 200,
+            body: [{
+                product_descr: "State of the art pen, hand-crafted by the internationally famous D. Lacy. We guarantee it will never run out of ink.",
+                product_name: "ASAPP Pens",
+                product_qty: 0
+            }]
+        }).as('addToCartAPI');
+    }
+
+    interceptProductsAPI_mockNoProducts(){
+        cy.intercept('GET', `${username}/products`, {
+            body: []
+        }).as('obtainedProductsAPI');
     }
 
     validateAddToCartPopUp(){
@@ -98,6 +117,14 @@ export class StorePage{
 
     getAllProductsCards(){
         return cy.get(products_card);
+    }
+
+    getNoProductsFoundLbl(){
+        return cy.get(noProductsLbl);
+    }
+
+    getOutOfStockLbl(){
+        return cy.get(out_of_stock_lbl);
     }
 
     setProductsQuantity(n){
