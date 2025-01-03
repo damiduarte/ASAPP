@@ -7,7 +7,7 @@ var pwd = Cypress.env('pwd');
 
 export class LoginPage{
     checkUser(user, password){
-        if(username === undefined || pwd === undefined){
+        if(user === undefined || password === undefined){
             user = Cypress.env('username');
             password = Cypress.env('pwd');
         }
@@ -29,7 +29,7 @@ export class LoginPage{
     }
 
     makeLogin(user, password){
-        if(username === undefined || pwd === undefined){
+        if(user === undefined || password === undefined){
             user = Cypress.env('username');
             password = Cypress.env('pwd');
         }

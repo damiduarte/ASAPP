@@ -19,7 +19,7 @@ describe('E2E', () => {
 
   afterEach(function() {
     if (this.currentTest.state === 'failed') {
-      cartPage.cleanCart();
+      // cartPage.cleanCart();
     }
   });
 })
