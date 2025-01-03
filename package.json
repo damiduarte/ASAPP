@@ -4,7 +4,7 @@
     "mochawesome:delete": "del /Q \"cypress/screenshots\" & del /Q \"cypress/results\" & del /Q \"mochawesome.json\"",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "cypress:tests": "npm run mochawesome:delete & npx cypress run & npm run mochawesome:merge",
-    "app:build_and_test": "npm run docker:build_app && timeout /t 10 && npm run cypress:tests"
+    "app:build_and_test": "npm run docker:build_app && timeout /t 10 && npm install && npm run cypress:tests"
   },
   "dependencies": {
     "cypress": "^13.17.0",

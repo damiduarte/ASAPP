@@ -5,9 +5,9 @@
     "passes": 1,
     "pending": 0,
     "failures": 0,
-    "start": "2025-01-03T17:38:00.590Z",
-    "end": "2025-01-03T17:38:04.224Z",
-    "duration": 3634,
+    "start": "2025-01-03T18:10:21.957Z",
+    "end": "2025-01-03T18:10:25.733Z",
+    "duration": 3776,
     "testsRegistered": 1,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "47218c14-9a6f-4746-b55d-9ee8088dc98e",
+      "uuid": "1a995e5d-5bb5-4dc1-b2cc-5459d87c0788",
       "title": "",
       "fullFile": "cypress\\tests\\1-e2e\\e2e-multiples-products.cy.js",
       "file": "cypress\\tests\\1-e2e\\e2e-multiples-products.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "a7537dfa-8a42-477c-bded-cc7ad6e75ff0",
+          "uuid": "f0a1a01a-eb74-4945-827c-a9c074330ab4",
           "title": "E2E",
           "fullFile": "",
           "file": "",
@@ -38,7 +38,7 @@
               "title": "E2E - Finish purchase with multiples products",
               "fullTitle": "E2E E2E - Finish purchase with multiples products",
               "timedOut": null,
-              "duration": 3555,
+              "duration": 3713,
               "state": "passed",
               "speed": "fast",
               "pass": true,
@@ -47,20 +47,20 @@
               "context": null,
               "code": "cy.visit('/');\ncy.intercept_E2E_APIS();\nloginPage.makeLogin_E2E();\nstorePage.addProductsToCart_E2E(2);\ncartPage.enter_E2E();\ncartPage.finishPayment_E2E();",
               "err": {},
-              "uuid": "feed332b-b042-4369-a3c3-5bbeedee99f1",
-              "parentUUID": "a7537dfa-8a42-477c-bded-cc7ad6e75ff0",
+              "uuid": "8dcf9a87-7c60-43cd-bc3e-7bb272c5359d",
+              "parentUUID": "f0a1a01a-eb74-4945-827c-a9c074330ab4",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "feed332b-b042-4369-a3c3-5bbeedee99f1"
+            "8dcf9a87-7c60-43cd-bc3e-7bb272c5359d"
           ],
           "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 3555,
+          "duration": 3713,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
