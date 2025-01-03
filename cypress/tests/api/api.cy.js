@@ -1,6 +1,6 @@
 const loginPage = require('../../support/page_objects/loginPage');
-const username = 'api_user';
-const pwd = 'Aa123123'
+const username = Cypress.env('username');
+const pwd = Cypress.env('pwd');
 const fail_username = 'fail_user';
 const fail_pwd = 'fail_pwd';
 
@@ -61,6 +61,7 @@ describe('API - Get Products', () => {
                 cy.wrap(typeof(product.product_name)).should('eq', 'string');
                 cy.wrap(typeof(product.product_qty)).should('eq', 'number');
                 cy.wrap(typeof(product.product_descr)).should('eq', 'string');
+                cy.wrap(response.status).should('eq', 200);
             });
         });
     })
@@ -70,5 +71,19 @@ describe('API - Get Products', () => {
             cy.wrap(response.status).should('eq', 401);
             cy.wrap(response.body).should('eq', 'User must be logged-in to perform this action');
         });
+    })
+
+    it('API - Get Products - Info', () => {
+        cy.get_products_API().then(response => {
+            cy.wrap(response.body).each(product => {
+                cy.get_product_info_API(undefined, product.product_name).then(response => {
+                    const product = response.body;
+                    cy.wrap(typeof(product.product_name)).should('eq', 'string');
+                    cy.wrap(typeof(product.product_qty)).should('eq', 'number');
+                    cy.wrap(typeof(product.product_descr)).should('eq', 'string');
+                    cy.wrap(response.status).should('eq', 200);
+                });
+            })
+        })
     })
 })

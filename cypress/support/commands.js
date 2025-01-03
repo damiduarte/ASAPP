@@ -78,6 +78,14 @@ Cypress.Commands.add('get_products_API', (username = Cypress.env('username')) =>
     })
 })
 
+Cypress.Commands.add('get_product_info_API', (username = Cypress.env('username'), product_name) => {
+    return cy.request({
+        method: 'GET',
+        url: `${Cypress.env('baseUrlAPI')}/${username}/products/${product_name}`,
+        failOnStatusCode: false
+    })
+})
+
 Cypress.Commands.add('get_cart_API', () => {
     return cy.request('GET', `${Cypress.env('baseUrlAPI')}/${username}/products/cart`);
 })
