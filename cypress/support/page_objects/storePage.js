@@ -17,8 +17,8 @@ export class StorePage{
                     this.saveProductTitleAndQuantity(product_title);
                     this.validateAddToCartAPI(product_title);
                 })
-                if(i === quantity){return false;} //Break loop after adding the desired quantity of products
             });
+            if(i === quantity - 1){return false;} //Break loop after adding the desired quantity of products
         });
     }
 
