@@ -25,3 +25,4 @@ If you haven't used it before, [this quickstart guide](https://docs.docker.com/g
 - To stop containers you can run `docker-compose stop`.
 
 Note that currently data such as users and stock will not persist after the containers are stopped.
+

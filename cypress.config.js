@@ -13,7 +13,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     env:{
-      username: 'dam_test',
+      username: 'prueba',
       pwd: 'Aa123123',
       baseUrlAPI: "http://localhost:5000"
     },
