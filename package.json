@@ -1,7 +1,7 @@
 {
   "scripts": {
     "docker:build_app": "docker build ./src/api -t asapp-qa-challenge-api && docker build ./src/ui -t asapp-qa-challenge-ui && docker-compose up -d",
-    "mochawesome:delete": "del /Q \"cypress/results\" & del /Q \"mochawesome.json\"",
+    "mochawesome:delete": "del /Q \"cypress/screenshots\" & del /Q \"cypress/results\" & del /Q \"mochawesome.json\"",
     "mochawesome:merge": "npx mochawesome-merge \"cypress/results/*.json\" > mochawesome.json && npx marge mochawesome.json",
     "cypress:tests": "npm run mochawesome:delete & npx cypress run & npm run mochawesome:merge",
     "app:build_and_test": "npm run docker:build_app && timeout /t 10 && npm run cypress:tests"

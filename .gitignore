@@ -17,7 +17,7 @@ npm_modules/
 node_modules/
 
 #cypress
-cypress/screenshots
+cypress/screenshots/*
 cypress/results
 mochawesome.json
 mochawesome-report
