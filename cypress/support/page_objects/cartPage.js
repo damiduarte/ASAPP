@@ -1,3 +1,4 @@
+const username = Cypress.env('username');
 const product_row = '.cart-table-row';
 const purchaseOkPopup = '[role="dialog"]';
 const purchaseOkBtn = '[type="button"]';
@@ -16,11 +17,11 @@ export class CartPage{
     }
 
     interceptProductsCartAPI(){
-        cy.intercept('GET', '/*/products/cart').as('getCartAPI');
+        cy.intercept('GET', `/${username}/products/cart`).as('getCartAPI');
     }
 
     interceptCheckoutAPI(){
-        cy.intercept('POST', '/*/products/cart/checkout').as('checkoutAPI');
+        cy.intercept('POST', `/${username}/products/cart/checkout`).as('checkoutAPI');
     }
 
     validateAddedProducts(){

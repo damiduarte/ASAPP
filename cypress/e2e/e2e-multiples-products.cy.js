@@ -18,9 +18,11 @@ describe('E2E', () => {
 
     storePage.obtainAllProductsCards().each((product_card, i) => {
       storePage.addProductToCart(product_card).then(() => {
-        storePage.validateAddToCartAPI();
         storePage.validateAddToCartPopUp();
-        storePage.saveProductsTitles(product_card);
+        storePage.getProductCardTitle(product_card).then(product_title => {
+          storePage.saveProductTitleAndQuantity(product_title);
+          storePage.validateAddToCartAPI(product_title);
+        })
         if(i === 1){return false;} //Break loop after adding 2 products
       });
     });
@@ -34,7 +36,6 @@ describe('E2E', () => {
       cartPage.validateCheckoutAPI();
       cartPage.getSuccessfullBuyPopupBtn().click();
     });
-
   })
 
   afterEach(function() {

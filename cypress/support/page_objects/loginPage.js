@@ -1,13 +1,13 @@
 const userInput = '#username';
 const pwdInput = '#password';
-const username = 'dam_test';
-const pwd = 'Aa123123';
+const username = Cypress.env('username');
+const pwd = Cypress.env('pwd');
 
 export class LoginPage{
     interceptLoginAPI(){
         cy.intercept('POST', '/users/login').as('loginAPI');
     }
-    
+
     /*
     * This function inputs the provided username and password into their respective fields,
     * and clicks the 'Log In' button. It then waits for the intercepted request

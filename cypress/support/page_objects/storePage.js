@@ -1,3 +1,4 @@
+const username = Cypress.env('username');
 const products_card = '[data-test-name="product-card"]';
 const product_title = '[data-test-name="product-title"]';
 const product_desc = '[data-test-name="product-desc"]';
@@ -20,11 +21,13 @@ export class StorePage{
     * Validates the Add to Cart API by waiting for the '@addToCartAPI' alias.
     * It checks that the request body contains the expected quantity and that the response status code is 200.
     */
-    validateAddToCartAPI(){
+    validateAddToCartAPI(product_title){
         cy.wait('@addToCartAPI').then(addToCartIntercept => {
+            const requestEndpoint = addToCartIntercept.request.url;
             const requestBody = addToCartIntercept.request.body;
             const responseData = addToCartIntercept.response;
 
+            cy.wrap(requestEndpoint).should('contain', product_title.replaceAll(' ', '%20'));
             cy.wrap(requestBody.quantity).should('eq', quantity);
             cy.wrap(responseData.statusCode).should('eq', 200);
         });
@@ -46,11 +49,11 @@ export class StorePage{
     }
 
     interceptProductsAPI(){
-        cy.intercept('GET', '*/products').as('obtainedProductsAPI');
+        cy.intercept('GET', `${username}/products`).as('obtainedProductsAPI');
     }
 
     interceptAddToCartAPI(){
-        cy.intercept('POST', '*/products/*/add').as('addToCartAPI');
+        cy.intercept('POST', `${username}/products/*/add`).as('addToCartAPI');
     }
 
     obtainAllProductsCards(){
@@ -73,18 +76,20 @@ export class StorePage{
         cy.get(quantity_selector).click({force: true});
     }
 
-    saveProductsTitles(product_card){
+    saveProductTitleAndQuantity(product_title){
         /*
-        * Saves the titles of the given product cards into an array of product information objects.
+        * Saves the given title.
         */
-        cy.wrap(product_card).find(product_title).invoke('text').then((product_title) => {
-            const product_info = {
-                title: product_title,
-                quantity: quantity
-            }
-            products_titles_obj_array.push(product_info);
-            cy.wrap(products_titles_obj_array).as('product_titles');
-        })
+        const product_info = {
+            title: product_title,
+            quantity: quantity
+        }
+        products_titles_obj_array.push(product_info);
+        cy.wrap(products_titles_obj_array).as('product_titles');
+    }
+
+    getProductCardTitle(product_card){
+        return cy.wrap(product_card).find(product_title).invoke('text');
     }
 }
 module.exports = new StorePage();
