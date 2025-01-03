@@ -11,5 +11,6 @@ module.exports = defineConfig({
       baseUrlAPI: "http://localhost:5000"
     },
     baseUrl: "http://localhost:3000",
+    specPattern: "cypress/tests/*/*cy.js"
   },
 });

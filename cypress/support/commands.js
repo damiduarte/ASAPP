@@ -53,7 +53,8 @@ Cypress.Commands.add('register_API', (username, pwd) => {
         body: {
             username: username,
             password: pwd
-        }
+        },
+        failOnStatusCode: false
     });
 })
 
@@ -67,6 +68,14 @@ Cypress.Commands.add('login_API', (username, pwd) => {
         },
         failOnStatusCode: false
     });
+})
+
+Cypress.Commands.add('get_products_API', (username = Cypress.env('username')) => {
+    return cy.request({
+        method: 'GET',
+        url: `${Cypress.env('baseUrlAPI')}/${username}/products`,
+        failOnStatusCode: false
+    })
 })
 
 Cypress.Commands.add('get_cart_API', () => {

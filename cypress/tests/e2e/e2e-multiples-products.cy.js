@@ -1,6 +1,6 @@
-const loginPage = require('../support/page_objects/loginPage');
-const storePage = require('../support/page_objects/storePage');
-const cartPage = require('../support/page_objects/cartPage');
+const loginPage = require('../../support/page_objects/loginPage');
+const storePage = require('../../support/page_objects/storePage');
+const cartPage = require('../../support/page_objects/cartPage');
 
 describe('E2E', () => {
   beforeEach(() => {

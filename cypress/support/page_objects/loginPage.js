@@ -2,16 +2,21 @@ const storePage = require('./storePage');
 
 const user_input = '#username';
 const pwd_input = '#password';
-const username = Cypress.env('username');
-const pwd = Cypress.env('pwd');
+var username = Cypress.env('username');
+var pwd = Cypress.env('pwd');
 
 export class LoginPage{
-    checkUser(){
-        cy.login_API(username, pwd).then(response => {
+    checkUser(user, password){
+        if(username === undefined || pwd === undefined){
+            user = Cypress.env('username');
+            password = Cypress.env('pwd');
+        }
+
+        cy.login_API(user, password).then(response => {
             if(response.status === 401){
-                cy.register_API(username, pwd);
+                cy.register_API(user, password);
             }else{
-                cy.logout_API(username);
+                cy.logout_API(user);
             }
         })
     }
@@ -23,9 +28,14 @@ export class LoginPage{
         });
     }
 
-    makeLogin(){
-        cy.get(user_input).type(username);
-        cy.get(pwd_input).type(pwd);
+    makeLogin(user, password){
+        if(username === undefined || pwd === undefined){
+            user = Cypress.env('username');
+            password = Cypress.env('pwd');
+        }
+
+        cy.get(user_input).type(user);
+        cy.get(pwd_input).type(password);
         return cy.contains('Log In').click();
     }
     
