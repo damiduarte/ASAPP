@@ -6,6 +6,10 @@ var username = Cypress.env('username');
 var pwd = Cypress.env('pwd');
 
 export class LoginPage{
+    /**
+     * Checks the user credentials and performs login or registration based on the response.
+     * If the user or password is not provided, it retrieves them from Cypress environment variables.
+     */
     checkUser(user, password){
         if(user === undefined || password === undefined){
             user = Cypress.env('username');

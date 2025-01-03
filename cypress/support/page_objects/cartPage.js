@@ -75,12 +75,6 @@ export class CartPage{
                 cy.remove_cart_item_API(product.product_name.replaceAll(' ', '%20'));
             });
         })
-        // each((product) => {
-            // cy.remove_cart_item_API(product)
-        // })
-        // cy.get(product_row).each(row => {
-        //     cy.wrap(row).contains('x').click({force: true});
-        // })
     }
     
     getBuyBtn(){
