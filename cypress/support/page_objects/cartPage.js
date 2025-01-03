@@ -1,7 +1,6 @@
 const username = Cypress.env('username');
-const product_row = '.cart-table-row';
-const purchaseOkPopup = '[role="dialog"]';
-const purchaseOkBtn = '[type="button"]';
+const purchase_ok_popup = '[role="dialog"]';
+const purchase_ok_btn = '[type="button"]';
 
 export class CartPage{
     enter_E2E(){
@@ -70,9 +69,18 @@ export class CartPage{
     }
 
     cleanCart(){
-        cy.get(product_row).each(row => {
-            cy.wrap(row).contains('x').click({force: true});
+        cy.get_cart_API().then(response => {
+            const products = response.body;
+            cy.wrap(products).each((product) => {
+                cy.remove_cart_item_API(product.product_name.replaceAll(' ', '%20'));
+            });
         })
+        // each((product) => {
+            // cy.remove_cart_item_API(product)
+        // })
+        // cy.get(product_row).each(row => {
+        //     cy.wrap(row).contains('x').click({force: true});
+        // })
     }
     
     getBuyBtn(){
@@ -80,7 +88,7 @@ export class CartPage{
     }
 
     getSuccessfullBuyPopupBtn() {
-        return cy.get(purchaseOkPopup).find(purchaseOkBtn);
+        return cy.get(purchase_ok_popup).find(purchase_ok_btn);
     }
 }
 module.exports = new CartPage();

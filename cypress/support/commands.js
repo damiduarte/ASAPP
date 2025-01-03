@@ -26,6 +26,7 @@
 const loginPage = require('../support/page_objects/loginPage');
 const storePage = require('../support/page_objects/storePage');
 const cartPage = require('../support/page_objects/cartPage');
+const username = Cypress.env('username');
 
 Cypress.Commands.add('intercept_E2E_APIS', () => {
         loginPage.interceptLoginAPI();
@@ -33,4 +34,12 @@ Cypress.Commands.add('intercept_E2E_APIS', () => {
         storePage.interceptAddToCartAPI();
         cartPage.interceptProductsCartAPI();
         cartPage.interceptCheckoutAPI();
+})
+
+Cypress.Commands.add('get_cart_API', () => {
+    return cy.request('GET', `${Cypress.env('baseUrlAPI')}/${username}/products/cart`);
+})
+
+Cypress.Commands.add('remove_cart_item_API', (product_name) => {
+    return cy.request('POST', `${Cypress.env('baseUrlAPI')}/${username}/products/cart/${product_name}/remove`);
 })

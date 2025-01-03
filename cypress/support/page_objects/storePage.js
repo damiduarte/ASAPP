@@ -44,13 +44,13 @@ export class StorePage{
          * It checks that the request body contains the expected quantity and that the response status code is 200.
          */
         cy.wait('@addToCartAPI').then(addToCartIntercept => {
-            const requestEndpoint = addToCartIntercept.request.url;
-            const requestBody = addToCartIntercept.request.body;
-            const responseData = addToCartIntercept.response;
+            const request_endpoint = addToCartIntercept.request.url;
+            const request_body = addToCartIntercept.request.body;
+            const response_data = addToCartIntercept.response;
 
-            cy.wrap(requestEndpoint).should('contain', product_title.replaceAll(' ', '%20'));
-            cy.wrap(requestBody.quantity).should('eq', quantity);
-            cy.wrap(responseData.statusCode).should('eq', 200);
+            cy.wrap(request_endpoint).should('contain', product_title.replaceAll(' ', '%20'));
+            cy.wrap(request_body.quantity).should('eq', quantity);
+            cy.wrap(response_data.statusCode).should('eq', 200);
         });
     }
 
@@ -59,12 +59,12 @@ export class StorePage{
          * This function waits for the '@obtainedProductsAPI' network request to complete, then iterates over each product card
          * on the cart page and checks that the product title and description match the corresponding data from the network response.
          */
-        cy.wait('@obtainedProductsAPI').then(productsIntercept => {
-            const responseData = productsIntercept.response;
+        cy.wait('@obtainedProductsAPI').then(products_intercept => {
+            const response_data = products_intercept.response;
 
             cy.get(products_card).each((product_card, i) => {
-                cy.wrap(product_card).find(product_title).invoke('text').should('equal', responseData.body[i].product_name);
-                cy.wrap(product_card).find(product_desc).invoke('text').should('equal', responseData.body[i].product_descr);
+                cy.wrap(product_card).find(product_title).invoke('text').should('equal', response_data.body[i].product_name);
+                cy.wrap(product_card).find(product_desc).invoke('text').should('equal', response_data.body[i].product_descr);
             });
         });
     }

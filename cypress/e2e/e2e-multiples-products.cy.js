@@ -11,7 +11,7 @@ describe('E2E', () => {
     storePage.addProductsToCart_E2E(2);
     cartPage.enter_E2E();
     cartPage.finishPayment_E2E();
-  })
+  });
 
   afterEach(function() {
     if (this.currentTest.state === 'failed') {

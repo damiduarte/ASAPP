@@ -7,7 +7,8 @@ module.exports = defineConfig({
     },
     env:{
       username: 'dam_test',
-      pwd: 'Aa123123'
+      pwd: 'Aa123123',
+      baseUrlAPI: "http://localhost:5000"
     },
     baseUrl: "http://localhost:3000",
   },
