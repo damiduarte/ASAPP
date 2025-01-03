@@ -9,6 +9,19 @@ var quantity;
 var products_titles_obj_array = [];
 
 export class StorePage{
+    addProductsToCart_E2E(quantity){
+        this.obtainAllProductsCards().each((product_card, i) => {
+            this.addProductToCart(product_card).then(() => {
+                this.validateAddToCartPopUp();
+                this.getProductCardTitle(product_card).then(product_title => {
+                    this.saveProductTitleAndQuantity(product_title);
+                    this.validateAddToCartAPI(product_title);
+                })
+                if(i === quantity){return false;} //Break loop after adding the desired quantity of products
+            });
+        });
+    }
+
     enter(){
         cy.contains('Store').click();
     }

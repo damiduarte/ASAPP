@@ -1,3 +1,5 @@
+const storePage = require('./storePage');
+
 const userInput = '#username';
 const pwdInput = '#password';
 const username = Cypress.env('username');
@@ -6,6 +8,13 @@ const pwd = Cypress.env('pwd');
 export class LoginPage{
     interceptLoginAPI(){
         cy.intercept('POST', '/users/login').as('loginAPI');
+    }
+
+    makeLogin_E2E(){
+        this.makeLogin().then(() => {
+            this.validateLoginAPI();
+            storePage.validateLoadedProductsAPI();
+        });
     }
 
     /*

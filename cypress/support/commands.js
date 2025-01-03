@@ -23,3 +23,14 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+const loginPage = require('../support/page_objects/loginPage');
+const storePage = require('../support/page_objects/storePage');
+const cartPage = require('../support/page_objects/cartPage');
+
+Cypress.Commands.add('intercept_E2E_APIS', () => {
+        loginPage.interceptLoginAPI();
+        storePage.interceptProductsAPI();
+        storePage.interceptAddToCartAPI();
+        cartPage.interceptProductsCartAPI();
+        cartPage.interceptCheckoutAPI();
+})

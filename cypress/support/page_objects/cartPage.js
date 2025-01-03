@@ -4,6 +4,20 @@ const purchaseOkPopup = '[role="dialog"]';
 const purchaseOkBtn = '[type="button"]';
 
 export class CartPage{
+    enter_E2E(){
+        this.enter().then(() => {
+            this.validateCartAPI();
+            this.validateAddedProducts();
+        });
+    }
+
+    finishPayment_E2E(){
+        this.getBuyBtn().click().then(() => {
+            this.validateCheckoutAPI();
+            this.getSuccessfullBuyPopupBtn().click();
+        });
+    }
+
     enter(){
         return cy.contains('Cart').click();
     }
