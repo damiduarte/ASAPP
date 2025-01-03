@@ -29,9 +29,9 @@ Note that currently data such as users and stock will not persist after the cont
 ## How to run the test after starting the APP
 - If you only need to run the tests after starting the APP then you need to execute:
     `npm run cypress:tests`
-- When the tests finish an html report will be generated at `mochawesome-reporter/mochawesome.html`
+- When the tests finish an html report will be generated at 
 
 ## Hot to start the APP and then run the tests
 - If you need to build the APP and then run the tests in a single command:
     `npm run app:build_and_test`
-- This will build the Images for API and UI, then start them through docker-compose and finally execute all the tests and generate a report
+- This will build the Images for API and UI, then start them through docker-compose and finally execute all the tests and generate a report at `mochawesome-reporter/mochawesome.html`
